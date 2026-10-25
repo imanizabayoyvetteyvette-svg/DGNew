@@ -4,27 +4,27 @@
     "slug": "dg-retail",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/DGLoGo.jpg",
+    "icon": "./assets/DGLoGo-black-gold-flipped.jpg",
     "scheme": "dgretail",
     "userInterfaceStyle": "automatic",
     "ios": {
-      "icon": "./assets/DGLoGo.jpg",
+      "icon": "./assets/DGLoGo-black-gold-flipped.jpg",
       "bundleIdentifier": "com.dgretail.app",
       "supportsTablet": true
     },
     "android": {
       "package": "com.dgretail.app",
       "adaptiveIcon": {
-        "backgroundColor": "#2E7D32",
-        "foregroundImage": "./assets/DGLoGo.jpg",
+        "backgroundColor": "#171717",
+        "foregroundImage": "./assets/DGLoGo-black-gold-flipped.jpg",
         "backgroundImage": "./assets/images/android-icon-background.png",
-        "monochromeImage": "./assets/DGLoGo.jpg"
+        "monochromeImage": "./assets/DGLoGo-black-gold-flipped.jpg"
       },
       "predictiveBackGestureEnabled": false
     },
     "web": {
       "output": "server",
-      "favicon": "./assets/DGLoGo.jpg"
+      "favicon": "./assets/DGLoGo-black-gold-flipped.jpg"
     },
     "plugins": [
       "expo-router",

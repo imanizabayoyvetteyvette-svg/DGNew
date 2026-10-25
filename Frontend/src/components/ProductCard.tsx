@@ -58,7 +58,7 @@ const styles = StyleSheet.create({
     imageWrapper: {
         position: 'relative',
         width: '100%',
-        height: 125,
+        height: 155,
         borderRadius: 8,
         overflow: 'hidden',
     },
@@ -92,7 +92,7 @@ const styles = StyleSheet.create({
     price: {
         fontSize: 15,
         fontWeight: 'bold',
-        color: Colors.primary,
+        color: Colors.secondary,
         marginTop: 4,
     },
     lowStock: {
