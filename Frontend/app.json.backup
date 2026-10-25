@@ -1,0 +1,55 @@
+{
+  "expo": {
+    "name": "E-Commerce App",
+    "slug": "dg-retail",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/DGLoGo-black-gold-flipped.jpg",
+    "scheme": "dgretail",
+    "userInterfaceStyle": "automatic",
+    "ios": {
+      "icon": "./assets/DGLoGo-black-gold-flipped.jpg",
+      "bundleIdentifier": "com.dgretail.app",
+      "supportsTablet": true
+    },
+    "android": {
+      "package": "com.dgretail.app",
+      "adaptiveIcon": {
+        "backgroundColor": "#171717",
+        "foregroundImage": "./assets/DGLoGo-black-gold-flipped.jpg",
+        "backgroundImage": "./assets/images/android-icon-background.png",
+        "monochromeImage": "./assets/DGLoGo-black-gold-flipped.jpg"
+      },
+      "predictiveBackGestureEnabled": false
+    },
+    "web": {
+      "output": "server",
+      "favicon": "./assets/DGLoGo-black-gold-flipped.jpg"
+    },
+    "plugins": [
+      "expo-router",
+      [
+        "expo-splash-screen",
+        {
+          "backgroundColor": "#000000",
+          "image": "./assets/splash.jpg",
+          "imageWidth": 200
+        }
+      ]
+    ],
+    "experiments": {
+      "typedRoutes": true,
+      "reactCompiler": true
+    },
+    "extra": {
+      "router": {
+        "asyncRoutes": {
+          "web": true
+        }
+      },
+      "eas": {
+        "projectId": "5b71dac4-0402-4489-a389-2b9bd115de6d"
+      }
+    }
+  }
+}
