@@ -5,6 +5,10 @@ import {
 } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 
+
+
+
+
 const DEV = {
     name: 'Samuel N.',
     role: 'FreeLancer Full-Stack Developer',
