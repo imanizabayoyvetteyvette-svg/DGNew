@@ -2,10 +2,9 @@ import axios, { isAxiosError } from 'axios';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const getBaseUrl = (): string => {
-    if (process.env.EXPO_PUBLIC_API_URL) {
-        return process.env.EXPO_PUBLIC_API_URL.replace(/\/+$/, '');
-    }
-    return 'https://dgapp.onrender.com/api';
+    const rawUrl = process.env.EXPO_PUBLIC_API_URL || 'https://dgnew.onrender.com/api';
+    const cleanUrl = rawUrl.replace(/\/+$/, '');
+    return cleanUrl.endsWith('/api') ? cleanUrl : `${cleanUrl}/api`;
 };
 
 const API_BASE_URL = getBaseUrl();
