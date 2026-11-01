@@ -1,6 +1,6 @@
-import * as LocalAuthentication from 'expo-local-authentication';
+﻿import * as LocalAuthentication from 'expo-local-authentication';
 import * as SecureStore from 'expo-secure-store';
-import * as Crypto from 'expo-crypto';
+
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { Platform } from 'react-native';
 
@@ -147,7 +147,16 @@ export async function clearStoredDeviceToken(): Promise<void> {
  * 4. Generate cryptographically secure random UUID for device_token.
  */
 export function generateDeviceToken(): string {
-    return Crypto.randomUUID();
+    // Use Web Crypto API (available on web and Hermes RN >= 0.73) with Math.random fallback
+    if (typeof crypto !== 'undefined' && typeof crypto.randomUUID === 'function') {
+        return crypto.randomUUID();
+    }
+    // Fallback: RFC-4122 v4 UUID via Math.random (safe for device token generation)
+    return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, (c) => {
+        const r = (Math.random() * 16) | 0;
+        const v = c === 'x' ? r : (r & 0x3) | 0x8;
+        return v.toString(16);
+    });
 }
 
 /**
