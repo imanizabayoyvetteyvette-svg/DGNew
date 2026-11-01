@@ -40,8 +40,8 @@ auto_migrate_schema()
 seed_products_if_empty()
 
 app = FastAPI(
-    title="D&G E-Commerce API",
-    description="Production backend API for D&G React Native mobile application.",
+    title="E-Shop API",
+    description="Production backend API for E-Shop React Native mobile application.",
     version="1.0.0"
 )
 

@@ -164,7 +164,7 @@ export default function ProfileScreen() {
                     <Text style={styles.logoutBtnText}>{t.logout}</Text>
                 </TouchableOpacity>
 
-                <Text style={styles.appVersion}>DG Retail App · v1.0.0</Text>
+                <Text style={styles.appVersion}>E-Shop App · v1.0.0</Text>
             </ScrollView>
 
             {/* DELETE ACCOUNT MODAL */}

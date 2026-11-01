@@ -1,39 +1,39 @@
 {
   "expo": {
-    "name": "E-Market",
-    "slug": "e-market",
+    "name": "E-Shop",
+    "slug": "e-shop",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/DGLoGo.jpg",
-    "scheme": "e-market",
+    "icon": "./assets/logo.png",
+    "scheme": "eshop",
     "userInterfaceStyle": "automatic",
     "ios": {
-      "icon": "./assets/DGLoGo.jpg",
-      "bundleIdentifier": "com.dgretail.app",
+      "icon": "./assets/logo.png",
+      "bundleIdentifier": "com.eshop.app",
       "supportsTablet": true
     },
     "android": {
-      "package": "com.dgretail.app",
+      "package": "com.eshop.app",
       "softwareKeyboardLayoutMode": "resize",
       "adaptiveIcon": {
-        "backgroundColor": "#4F46E5",
-        "foregroundImage": "./assets/DGLoGo.jpg",
+        "backgroundColor": "#042F2E",
+        "foregroundImage": "./assets/logo.png",
         "backgroundImage": "./assets/images/android-icon-background.png",
-        "monochromeImage": "./assets/DGLoGo.jpg"
+        "monochromeImage": "./assets/images/android-icon-monochrome.png"
       },
       "predictiveBackGestureEnabled": false
     },
     "web": {
       "output": "server",
-      "favicon": "./assets/DGLoGo.jpg"
+      "favicon": "./assets/logo.png"
     },
     "plugins": [
       "expo-router",
       [
         "expo-splash-screen",
         {
-          "backgroundColor": "#0F172A",
-          "image": "./assets/DGLoGo.jpg",
+          "backgroundColor": "#021A19",
+          "image": "./assets/logo.png",
           "imageWidth": 160
         }
       ],

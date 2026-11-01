@@ -126,7 +126,6 @@ export default function CustomerHome() {
 
     if (loading) return <ActivityIndicator style={{ flex: 1 }} color={Colors.primary} size="large" />;
 
-
     const filteredProducts =
         selectedCategory === 'All'
             ? products
@@ -136,6 +135,29 @@ export default function CustomerHome() {
 
     return (
         <View style={styles.container}>
+            {/* HERO BRAND BANNER */}
+            <View style={styles.heroBanner}>
+                <View style={styles.heroContent}>
+                    <View style={styles.heroPill}>
+                        <Ionicons name="sparkles" size={11} color={Colors.primaryDark} />
+                        <Text style={styles.heroPillText}>
+                            {lang === 'rw' ? 'BYIHARIYE' : lang === 'fr' ? 'EXCLUSIVITÉS' : 'FEATURED DEALS'}
+                        </Text>
+                    </View>
+                    <Text style={styles.heroTitle}>E-Shop Essentials</Text>
+                    <Text style={styles.heroSubtitle}>
+                        {lang === 'rw'
+                            ? 'Ibicuruzwa byiza n’itangwa ryihuse mu mujyi'
+                            : lang === 'fr'
+                            ? 'Produits de qualité et livraison ultra-rapide'
+                            : 'Curated products with swift local delivery'}
+                    </Text>
+                </View>
+                <View style={styles.heroBadgeBox}>
+                    <Ionicons name="bag-check" size={26} color="#FFFFFF" />
+                </View>
+            </View>
+
             {/* IN-APP DELIVERY HANDSHAKE NOTIFICATION BANNER */}
             {pendingOrders.length > 0 && (
                 <TouchableOpacity
@@ -221,6 +243,60 @@ export default function CustomerHome() {
 
 const styles = StyleSheet.create({
     container: { flex: 1, paddingHorizontal: 12, backgroundColor: Colors.background },
+    heroBanner: {
+        backgroundColor: Colors.primaryDark,
+        borderRadius: 18,
+        paddingVertical: 14,
+        paddingHorizontal: 16,
+        marginTop: 10,
+        marginBottom: 6,
+        flexDirection: 'row',
+        alignItems: 'center',
+        justifyContent: 'space-between',
+        shadowColor: Colors.primaryDark,
+        shadowOffset: { width: 0, height: 6 },
+        shadowOpacity: 0.22,
+        shadowRadius: 10,
+        elevation: 4,
+    },
+    heroContent: { flex: 1, paddingRight: 10 },
+    heroPill: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        backgroundColor: '#CCFBF1',
+        paddingHorizontal: 8,
+        paddingVertical: 2,
+        borderRadius: 8,
+        alignSelf: 'flex-start',
+        marginBottom: 4,
+        gap: 4,
+    },
+    heroPillText: {
+        fontSize: 10,
+        fontWeight: '800',
+        color: Colors.primaryDark,
+        letterSpacing: 0.8,
+    },
+    heroTitle: {
+        fontSize: 18,
+        fontWeight: '900',
+        color: '#FFFFFF',
+        letterSpacing: 0.3,
+    },
+    heroSubtitle: {
+        fontSize: 12,
+        color: '#E0F2FE',
+        marginTop: 2,
+        opacity: 0.9,
+    },
+    heroBadgeBox: {
+        width: 48,
+        height: 48,
+        borderRadius: 24,
+        backgroundColor: 'rgba(255, 255, 255, 0.15)',
+        justifyContent: 'center',
+        alignItems: 'center',
+    },
     notificationBanner: {
         flexDirection: 'row',
         alignItems: 'center',
@@ -229,8 +305,8 @@ const styles = StyleSheet.create({
         borderColor: '#A7F3D0',
         borderRadius: 14,
         padding: 12,
-        marginTop: 10,
-        marginBottom: 8,
+        marginTop: 6,
+        marginBottom: 6,
         elevation: 2,
     },
     bannerIconBox: {
@@ -244,20 +320,26 @@ const styles = StyleSheet.create({
     },
     bannerTitle: { fontSize: 13, fontWeight: '800', color: '#065F46' },
     bannerSub: { fontSize: 12, color: '#047857', marginTop: 1 },
-    categoryContainer: { marginVertical: 8 },
+    categoryContainer: { marginVertical: 6 },
     categoryScroll: { paddingVertical: 4 },
     categoryPill: {
         paddingHorizontal: 16,
-        paddingVertical: 7,
+        paddingVertical: 8,
         borderRadius: 20,
         backgroundColor: '#FFFFFF',
         marginRight: 8,
-        borderWidth: 1,
+        borderWidth: 1.5,
         borderColor: Colors.border,
+        elevation: 1,
     },
     categoryPillActive: {
         backgroundColor: Colors.primary,
         borderColor: Colors.primary,
+        elevation: 3,
+        shadowColor: Colors.primary,
+        shadowOffset: { width: 0, height: 2 },
+        shadowOpacity: 0.3,
+        shadowRadius: 4,
     },
     categoryText: {
         fontSize: 13,
@@ -269,7 +351,7 @@ const styles = StyleSheet.create({
         fontWeight: '700',
     },
     row: { justifyContent: 'space-between' },
-    emptyContainer: { alignItems: 'center', marginTop: 80, paddingHorizontal: 20 },
+    emptyContainer: { alignItems: 'center', marginTop: 60, paddingHorizontal: 20 },
     emptyText: { fontSize: 16, fontWeight: 'bold', color: Colors.text, textAlign: 'center' },
     emptySubtext: { fontSize: 14, color: Colors.textMuted, marginTop: 6, textAlign: 'center' },
 });

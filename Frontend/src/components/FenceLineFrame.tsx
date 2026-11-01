@@ -7,7 +7,7 @@ interface FenceLineFrameProps {
     color?: string;
 }
 
-export default function FenceLineFrame({ children, color = '#2563EB' }: FenceLineFrameProps) {
+export default function FenceLineFrame({ children, color = Colors.primary }: FenceLineFrameProps) {
     return (
         <View style={styles.container}>
             {/* Top Outer Fence Line */}

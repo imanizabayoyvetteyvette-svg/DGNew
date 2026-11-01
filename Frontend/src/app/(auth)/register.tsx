@@ -87,7 +87,7 @@ export default function RegisterScreen() {
                         {/* Branding Header */}
                         <View style={styles.brandContainer}>
                             <Image
-                                source={require('../../../assets/DGLoGo.jpg')}
+                                source={require('../../../assets/logo.png')}
                                 style={styles.logoImage}
                                 resizeMode="contain"
                             />
@@ -99,7 +99,7 @@ export default function RegisterScreen() {
                         <View style={styles.fencedCard}>
                             <View style={styles.cardFenceTop} />
 
-                            <Text style={styles.cardTitle}>E-Market</Text>
+                            <Text style={styles.cardTitle}>E-Shop</Text>
                             <Text style={styles.cardSubtitle}>
 
                             </Text>
@@ -192,18 +192,18 @@ const styles = StyleSheet.create({
     securityBadge: {
         flexDirection: 'row',
         alignItems: 'center',
-        backgroundColor: '#EFF6FF',
+        backgroundColor: '#F0FDFA',
         paddingVertical: 4,
         paddingHorizontal: 12,
         borderRadius: 20,
         borderWidth: 1,
-        borderColor: '#BFDBFE',
+        borderColor: '#99F6E4',
         gap: 6,
     },
     securityBadgeText: {
         fontSize: 10,
         fontWeight: '800',
-        color: '#1D4ED8',
+        color: '#0F766E',
         letterSpacing: 1.2,
     },
     brandContainer: {

@@ -77,7 +77,7 @@ export default function OfflineNotice() {
 
                     <Text style={styles.title}>No Internet Connection</Text>
                     <Text style={styles.message}>
-                        D&G E-Commerce operates online-only. Please connect to Wi-Fi or enable mobile data to browse products and manage your account.
+                        E-Shop operates online-only. Please connect to Wi-Fi or enable mobile data to browse products and manage your account.
                     </Text>
 
                     <TouchableOpacity

@@ -17,17 +17,17 @@ function SplashScreen() {
             <View style={styles.splashCenter}>
                 <View style={styles.logoWrapper}>
                     <Image
-                        source={require('../../assets/DGLoGo.jpg')}
+                        source={require('../../assets/logo.png')}
                         style={styles.splashLogo}
                         resizeMode="contain"
                     />
                 </View>
-                <Text style={styles.splashBrand}>D&G E-COMMERCE</Text>
-                <Text style={styles.splashTagline}>Premium Retail & Fast Delivery</Text>
+                <Text style={styles.splashBrand}>E-SHOP</Text>
+                <Text style={styles.splashTagline}>Curated Essentials • Swift Delivery</Text>
             </View>
             <View style={styles.splashFooter}>
                 <ActivityIndicator size="small" color={Colors.primary} />
-                <Text style={styles.splashLoadingText}>Loading your experience...</Text>
+                <Text style={styles.splashLoadingText}>Loading your curated shopping experience...</Text>
             </View>
         </View>
     );
@@ -93,7 +93,7 @@ export default function RootLayout() {
 const styles = StyleSheet.create({
     splash: {
         flex: 1,
-        backgroundColor: '#0F172A', // Modern deep midnight obsidian
+        backgroundColor: '#021A19', // Deep Nordic Teal Obsidian
         justifyContent: 'center',
         alignItems: 'center',
         paddingHorizontal: 24,
@@ -103,9 +103,9 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
     },
     logoWrapper: {
-        width: 120,
-        height: 120,
-        borderRadius: 30,
+        width: 124,
+        height: 124,
+        borderRadius: 32,
         backgroundColor: '#FFFFFF',
         justifyContent: 'center',
         alignItems: 'center',
@@ -116,19 +116,19 @@ const styles = StyleSheet.create({
         elevation: 10,
         marginBottom: 20,
         borderWidth: 2,
-        borderColor: 'rgba(255, 255, 255, 0.15)',
+        borderColor: 'rgba(255, 255, 255, 0.2)',
         overflow: 'hidden',
     },
     splashLogo: {
-        width: 110,
-        height: 110,
-        borderRadius: 25,
+        width: 114,
+        height: 114,
+        borderRadius: 26,
     },
     splashBrand: {
-        fontSize: 24,
+        fontSize: 28,
         fontWeight: '900',
         color: '#FFFFFF',
-        letterSpacing: 2,
+        letterSpacing: 3,
         marginBottom: 6,
     },
     splashTagline: {
@@ -146,7 +146,7 @@ const styles = StyleSheet.create({
     splashLoadingText: {
         fontSize: 12,
         fontWeight: '500',
-        color: '#64748B',
+        color: '#5EEAD4',
     },
     loader: {
         flex: 1,

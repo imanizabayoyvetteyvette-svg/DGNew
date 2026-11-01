@@ -1,14 +1,15 @@
 export const Colors = {
-    primary: '#4F46E5', // Vibrant Royal Indigo (Modern Luxury E-Commerce)
-    primaryLight: '#EEF2FF', // Soft Indigo Wash
-    primaryDark: '#3730A3', // Deep Indigo Shade
-    secondary: '#F59E0B', // Warm Amber (Eye-catching retail accent)
-    secondaryLight: '#FEF3C7', // Soft Amber Wash
-    background: '#F8FAFC', // Ultra-clean Slate Tint
-    card: '#FFFFFF', // Pure White Cards
-    text: '#0F172A', // Slate-900 (High contrast readability)
-    textMuted: '#64748B', // Slate-500
-    border: '#E2E8F0', // Slate-200 subtle divider
-    error: '#EF4444', // Clean Rose Red
-    success: '#10B981', // Emerald Green
+    primary: '#0D9488', // Modern Emerald Teal (Flagship E-Shop Brand)
+    primaryLight: '#F0FDFA', // Soft Mint Wash
+    primaryDark: '#0F766E', // Deep Nordic Teal
+    secondary: '#F97316', // Vibrant Warm Coral / Tangerine Accent
+    secondaryLight: '#FFEDD5', // Soft Coral Wash
+    background: '#F8FAFC', // Ultra-clean Contemporary Slate Tint
+    card: '#FFFFFF', // Pure White Elevated Surface
+    text: '#0F172A', // Slate Obsidian (Crisp Readability)
+    textMuted: '#64748B', // Cool Muted Slate
+    border: '#E2E8F0', // Subtle Divider Border
+    error: '#EF4444', // Clean Rose Alert
+    success: '#10B981', // Crisp Emerald Green
+    accent: '#0284C7', // Electric Blue Accent
 };

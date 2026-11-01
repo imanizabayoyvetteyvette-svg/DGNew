@@ -126,11 +126,11 @@ export default function LoginScreen() {
                         {/* Branding Header */}
                         <View style={styles.brandContainer}>
                             <Image
-                                source={require('../../../assets/DGLoGo.jpg')}
+                                source={require('../../../assets/logo.png')}
                                 style={styles.logoImage}
                                 resizeMode="contain"
                             />
-                            <Text style={styles.brandTitle}>D&G E-COMMERCE</Text>
+                            <Text style={styles.brandTitle}>E-SHOP</Text>
                             <Text style={styles.brandSub}>Device Lock Authentication</Text>
                         </View>
 
@@ -224,7 +224,7 @@ export default function LoginScreen() {
 
                         {/* Footer Switch to Register */}
                         <View style={styles.footerContainer}>
-                            <Text style={styles.footerText}>New to D&G? </Text>
+                            <Text style={styles.footerText}>New to E-Shop? </Text>
                             <TouchableOpacity
                                 onPress={() => router.push('/(auth)/register')}
                                 activeOpacity={0.7}
@@ -340,9 +340,9 @@ const styles = StyleSheet.create({
         width: 100,
         height: 100,
         borderRadius: 50,
-        backgroundColor: '#EFF6FF',
+        backgroundColor: '#F0FDFA',
         borderWidth: 2,
-        borderColor: '#BFDBFE',
+        borderColor: '#99F6E4',
         justifyContent: 'center',
         alignItems: 'center',
         alignSelf: 'center',
@@ -352,7 +352,7 @@ const styles = StyleSheet.create({
         width: 80,
         height: 80,
         borderRadius: 40,
-        backgroundColor: '#DBEAFE',
+        backgroundColor: '#CCFBF1',
         justifyContent: 'center',
         alignItems: 'center',
     },
@@ -360,13 +360,13 @@ const styles = StyleSheet.create({
         width: 68,
         height: 68,
         borderRadius: 34,
-        backgroundColor: '#EFF6FF',
+        backgroundColor: '#F0FDFA',
         justifyContent: 'center',
         alignItems: 'center',
         alignSelf: 'center',
         marginBottom: 16,
         borderWidth: 1.5,
-        borderColor: '#BFDBFE',
+        borderColor: '#99F6E4',
     },
     cardTitle: {
         fontSize: 22,
