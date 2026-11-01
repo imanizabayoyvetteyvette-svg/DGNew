@@ -1,312 +1,217 @@
-# ==========================================================
-# D&G E-COMMERCE COMPLETE API ENDPOINTS
-# Base URL: https://dgapp.onrender.com
-# ==========================================================
+# D&G E-Shop API Endpoints
 
-# ..........................................................
-# API 1: Register New User Account (Hardware Device Lock)
-# ..........................................................
-# Method: POST
-# URL: https://dgapp.onrender.com/api/auth/register
-# Headers: Content-Type: application/json
-# Request Body:
+This reference reflects the FastAPI routers and Pydantic schemas currently in `Backend/`.
+
+## Base URL
+
+The frontend defaults to `https://dgnew.onrender.com/api`. Set `EXPO_PUBLIC_API_URL` to use another backend; it may be a host URL or a URL ending in `/api`. For local development, the API is typically `http://localhost:8000/api`.
+
+The examples below use `https://dgnew.onrender.com/api` as the base URL. Confirm the deployed URL for your environment before using it.
+
+## Authentication
+
+Authenticated routes require:
+
+```http
+Authorization: Bearer <access_token>
+```
+
+Registration and login use a `device_token`; there is no password field in the backend authentication schemas. The app prompts for the device's screen lock locally before sending the device token to the API.
+
+### `POST /auth/register`
+
+Register a user. Returns **201 Created**.
+
+Request:
+
+```json
 {
-  "email": "john@gmail.com",
-  "device_token": "c3b9b4f2-95b6-4b45-a7b2-850f4a478b12",
+  "email": "customer@example.com",
+  "device_token": "device-token-value",
   "is_admin": false
 }
-# Expected Response (201 Created):
+```
+
+`email` and `device_token` are required; `is_admin` is optional and defaults to `false`.
+
+### `POST /auth/login`
+
+Log in with a previously registered device token. Returns **200 OK**.
+
+```json
+{
+  "device_token": "device-token-value"
+}
+```
+
+### `POST /auth/rebind-device`
+
+Bind a new device token to the account identified by email. Returns **200 OK**.
+
+```json
+{
+  "email": "customer@example.com",
+  "new_device_token": "new-device-token-value"
+}
+```
+
+### Authentication response
+
+Register, login, and rebind return an `AuthResponse`:
+
+```json
 {
   "success": true,
-  "token": "eyJhbGciOiJIUzI1NiIsIn...",
-  "access_token": "eyJhbGciOiJIUzI1NiIsIn...",
+  "token": "<jwt>",
+  "access_token": "<jwt>",
   "token_type": "bearer",
   "user": {
     "id": "1",
-    "email": "john@gmail.com",
+    "email": "customer@example.com",
     "is_admin": false
-  }
+  },
+  "message": "Login successful"
 }
+```
 
+The `message` varies by operation. Error responses use FastAPI's `detail` field.
 
-# ..........................................................
-# API 2: User Login (Hardware Device Lock)
-# ..........................................................
-# Method: POST
-# URL: https://dgapp.onrender.com/api/auth/login
-# Headers: Content-Type: application/json
-# Request Body:
+## Users
+
+### `GET /users/me`
+
+Return the authenticated user's `id`, `email`, and `is_admin`.
+
+### `DELETE /users/me`
+
+Delete the authenticated user's account. The backend deletes the user's orders and cart before deleting the user. Returns:
+
+```json
 {
-  "device_token": "c3b9b4f2-95b6-4b45-a7b2-850f4a478b12"
+  "message": "Account, orders, cart, and all user info deleted successfully"
 }
-# Expected Response (200 OK):
+```
+
+### `DELETE /users/{user_id}`
+
+Delete the specified user. Admins may delete any user. The route intends to allow a user to delete their own account, but currently compares the integer database ID to the string path parameter, so a non-admin's self-delete request through this route is denied. Use `DELETE /users/me` to delete the current account.
+
+## Products
+
+Product routes currently have no authentication dependency in the backend. The admin-only presentation in the app does not restrict direct API calls.
+
+### `GET /products/`
+
+List products. Optional query parameters:
+
+* `category` — case-insensitive partial match against the category.
+* `search` — case-insensitive partial match against the product name.
+
+Example: `GET /products/?category=Shoes&search=Nike`
+
+### `GET /products/{product_id}`
+
+Return one product, or **404** when it does not exist.
+
+### `POST /products/`
+
+Create a product. Returns **201 Created**. `name`, `category`, and `price` are required; `id` is optional and otherwise generated. `quantity` defaults to `0`, `info` to `{}`, and `images` to `[]`.
+
+```json
 {
-  "success": true,
-  "token": "eyJhbGciOiJIUzI1NiIsIn...",
-  "access_token": "eyJhbGciOiJIUzI1NiIsIn...",
-  "token_type": "bearer",
-  "user": {
-    "id": "1",
-    "email": "john@gmail.com",
-    "is_admin": false
-  }
-}
-
-
-# ..........................................................
-# API 2B: Rebind Device (Account Recovery / Replacement)
-# ..........................................................
-# Method: POST
-# URL: https://dgapp.onrender.com/api/auth/rebind-device
-# Headers: Content-Type: application/json
-# Request Body:
-{
-  "email": "john@gmail.com",
-  "new_device_token": "d8e12a45-6677-49f3-8f0b-489025ceba39"
-}
-# Expected Response (200 OK):
-{
-  "success": true,
-  "message": "Device rebound successfully",
-  "token": "eyJhbGciOiJIUzI1NiIsIn...",
-  "user": {
-    "id": "1",
-    "email": "john@gmail.com",
-    "is_admin": false
-  }
-}
-
-
-# ..........................................................
-# API 3: Get Authenticated User Profile
-# ..........................................................
-# Method: GET
-# URL: https://dgapp.onrender.com/api/users/me
-# Headers: Authorization: Bearer <YOUR_ACCESS_TOKEN>
-# Request Body: None
-# Expected Response (200 OK):
-{
-  "id": "1",
-  "email": "john@gmail.com",
-  "is_admin": false
-}
-
-
-# ..........................................................
-# API 4: Get All Products / Search / Filter by Category
-# ..........................................................
-# Method: GET
-# URL Options:
-#   - Get all: https://dgapp.onrender.com/api/products/
-#   - Filter category: https://dgapp.onrender.com/api/products/?category=Shoes
-#   - Search name: https://dgapp.onrender.com/api/products/?search=Nike
-# Headers: None required
-# Request Body: None
-# Expected Response (200 OK):
-[
-  {
-    "id": "1",
-    "name": "Nike Air Max",
-    "category": "Shoes",
-    "price": 120.00,
-    "quantity": 50,
-    "info": {
-      "brand": "Nike",
-      "color": "Black",
-      "sizes": [40, 41, 42]
-    },
-    "images": [
-      "/products/nike-air-1.jpg",
-      "/products/nike-air-2.jpg"
-    ]
-  }
-]
-
-
-# ..........................................................
-# API 5: Get Single Product Details by ID
-# ..........................................................
-# Method: GET
-# URL: https://dgapp.onrender.com/api/products/1
-# Headers: None required
-# Request Body: None
-# Expected Response (200 OK):
-{
-  "id": "1",
-  "name": "Nike Air Max",
-  "category": "Shoes",
-  "price": 120.00,
-  "quantity": 50,
+  "name": "Everyday Bag",
+  "category": "Bags",
+  "price": 85,
+  "quantity": 10,
   "info": {
-    "brand": "Nike",
-    "color": "Black",
-    "sizes": [40, 41, 42]
+    "color": "Brown"
   },
   "images": [
-    "/products/nike-air-1.jpg",
-    "/products/nike-air-2.jpg"
+    "https://example.com/bag.jpg"
   ]
 }
+```
 
+### `PUT /products/{product_id}`
 
-# ..........................................................
-# API 6: Fetch Active User Shopping Cart
-# ..........................................................
-# Method: GET
-# URL: https://dgapp.onrender.com/api/carts/
-# Headers: Authorization: Bearer <YOUR_ACCESS_TOKEN>
-# Request Body: None
-# Expected Response (200 OK):
+Update a product. Any supplied fields from the product schema (`name`, `category`, `price`, `quantity`, `info`, `images`) are updated; omitted fields are left unchanged. Returns **404** when the product does not exist.
+
+### `DELETE /products/{product_id}`
+
+Delete a product. Returns **404** when it does not exist; otherwise:
+
+```json
 {
-  "id": "1",
-  "user_id": "1",
-  "items": [
-    {
-      "product_id": 1,
-      "name": "Nike Air Max",
-      "price": 120,
-      "quantity": 2,
-      "subtotal": 240
-    }
-  ],
-  "total_price": 240.00
+  "message": "Product deleted successfully"
 }
+```
 
+## Shopping carts
 
-# ..........................................................
-# API 7: Update Shopping Cart (Add / Remove / Modify)
-# ..........................................................
-# Method: PUT
-# URL: https://dgapp.onrender.com/api/carts/
-# Headers:
-#   Authorization: Bearer <YOUR_ACCESS_TOKEN>
-#   Content-Type: application/json
-# Request Body:
+All cart routes require authentication. The cart is associated with the current user.
+
+### `GET /carts/`
+
+Return the user's cart. If none exists, the backend creates an empty cart first.
+
+### `PUT /carts/`
+
+Replace the cart contents. `items` is a list of arbitrary JSON values and `total_price` is a number.
+
+```json
 {
   "items": [
     {
-      "product_id": 1,
-      "name": "Nike Air Max",
-      "price": 120,
-      "quantity": 2,
-      "subtotal": 240
-    },
-    {
-      "product_id": 2,
-      "name": "Leather Bag",
-      "price": 50,
+      "product_id": "product-1",
+      "name": "Everyday Bag",
+      "price": 85,
       "quantity": 1,
-      "subtotal": 50
+      "subtotal": 85
     }
   ],
-  "total_price": 290.00
+  "total_price": 85
 }
-# Expected Response (200 OK):
-{
-  "id": "1",
-  "user_id": "1",
-  "items": [
-    {
-      "product_id": 1,
-      "name": "Nike Air Max",
-      "price": 120,
-      "quantity": 2,
-      "subtotal": 240
-    },
-    {
-      "product_id": 2,
-      "name": "Leather Bag",
-      "price": 50,
-      "quantity": 1,
-      "subtotal": 50
-    }
-  ],
-  "total_price": 290.00
-}
+```
 
+### `DELETE /carts/`
 
-# ..........................................................
-# API 8: Clear Shopping Cart
-# ..........................................................
-# Method: DELETE
-# URL: https://dgapp.onrender.com/api/carts/
-# Headers: Authorization: Bearer <YOUR_ACCESS_TOKEN>
-# Request Body: None
-# Expected Response (200 OK):
-{
-  "id": "1",
-  "user_id": "1",
-  "items": [],
-  "total_price": 0.00
-}
+Empty the user's cart and return the updated cart.
 
+## Orders
 
-# ..........................................................
-# API 9: Checkout / Create Order
-# ..........................................................
-# Method: POST
-# URL: https://dgapp.onrender.com/api/orders/
-# Headers:
-#   Authorization: Bearer <YOUR_ACCESS_TOKEN>
-#   Content-Type: application/json
-# Request Body:
-{
-  "id": "33333333-3333-3333-3333-333333333333",
-  "items": [
-    {
-      "product_id": 1,
-      "name": "Nike Air Max",
-      "price": 120,
-      "quantity": 2,
-      "subtotal": 240
-    }
-  ],
-  "total_price": 240.00
-}
-# Expected Response (200 OK):
-{
-  "id": "33333333-3333-3333-3333-333333333333",
-  "user_id": "1",
-  "items": [
-    {
-      "product_id": 1,
-      "name": "Nike Air Max",
-      "price": 120,
-      "quantity": 2,
-      "subtotal": 240
-    }
-  ],
-  "total_price": 240.00,
-  "paid": false,
-  "delivered": false,
-  "created_at": "2026-10-22T20:00:00"
-}
+All order routes require authentication.
 
+### `POST /orders/`
 
-# ..........................................................
-# API 10: Fetch Customer Order History & Tracking Status
-# ..........................................................
-# Method: GET
-# URL: https://dgapp.onrender.com/api/orders/
-# Headers: Authorization: Bearer <YOUR_ACCESS_TOKEN>
-# Request Body: None
-# Expected Response (200 OK):
-[
-  {
-    "id": "33333333-3333-3333-3333-333333333333",
-    "user_id": "1",
-    "items": [
-      {
-        "product_id": 1,
-        "name": "Nike Air Max",
-        "price": 120,
-        "quantity": 2,
-        "subtotal": 240
-      }
-    ],
-    "total_price": 240.00,
-    "paid": true,
-    "delivered": false,
-    "created_at": "2026-10-22T20:00:00"
-  }
-]
+Create an order. `items` is a list of arbitrary JSON values, `total_price` is required, and `id` is optional (otherwise generated). The backend marks the order `paid: true`, sets `delivered: false`, adjusts inventory for product items, and clears the user's cart.
+
+The app adds delivery and payment details as an item with `is_customer_info: true`. Such entries are excluded from the backend inventory adjustment.
+
+**Payment note:** There is no payment endpoint. The app's payment service currently simulates a successful payment before calling this route; the backend does not verify a payment transaction.
+
+### `GET /orders/`
+
+Return the authenticated user's orders, newest first.
+
+### `GET /orders/all`
+
+Return all orders for an admin. For a non-admin user, the backend returns only that user's orders rather than rejecting the request.
+
+### `PATCH /orders/{order_id}/deliver`
+
+Mark an order as delivered. Admins may update any order; other authenticated users may update only their own. Returns **404** if the order is missing or the user is not authorized.
+
+## Utility routes
+
+These routes are mounted directly on the backend, outside the `/api` prefix:
+
+| Method | Path | Response |
+|---|---|---|
+| `GET` | `/` | Backend status message |
+| `GET` | `/api/health` | `{"status":"ok"}` |
+
+## Implementation notes
+
+* FastAPI validation and application errors use JSON responses with a `detail` field.
+* `POST /auth/forgot-password` is called by a frontend screen, but no matching backend route is currently registered.
+* Product create, update, and delete routes are currently unprotected on the backend. Registration also accepts the optional `is_admin` field from its request body. Do not rely on the app's role-based UI as API authorization.
